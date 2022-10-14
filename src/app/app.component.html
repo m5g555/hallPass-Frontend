@@ -3,7 +3,7 @@
   <div *ngIf="pass.active">
     From <a  class="teacherName" [title]="pass.sendingTeacher">{{pass.sendingTeacher}}</a> to <a class="teacherName" [title]="pass.receivingTeacher">{{pass.receivingTeacher}}</a>
     Student: {{pass.studentName}}
-    <button type="button" (click)="changeState(pass)"></button>
+    <button type="button" (click)="changeState(pass)">Click to make Inactive</button>
 
   </div>
 </div>
@@ -12,6 +12,6 @@
   <div *ngIf="!pass.active">
     From <a  class="teacherName" [title]="pass.sendingTeacher">{{pass.sendingTeacher}}</a> to <a class="teacherName" [title]="pass.receivingTeacher">{{pass.receivingTeacher}}</a>
     Student: {{pass.studentName}}
-    <button type="button" (click)="changeState(pass)"></button>
+    <button type="button" (click)="changeState(pass)">Click to Make Active</button>
   </div>
 </div>
