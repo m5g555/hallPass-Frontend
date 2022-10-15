@@ -5,7 +5,7 @@ import { NewPassComponent } from 'src\\app\\new-pass\\new-pass.component';
 // List of all pages in my site
 const routes: Routes = [
   // each route is an object with a path and a connected component
-  { path: 'new-pass', component: NewPassComponent },
+  { path: 'newPass', component: NewPassComponent },
 ]
 
 @NgModule({
