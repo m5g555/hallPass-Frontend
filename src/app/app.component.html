@@ -1,17 +1,17 @@
 <h1>Active Passes</h1>
-<div *ngFor="let pass of passes">
-  <div *ngIf="pass.active">
-    From <a  class="teacherName" [title]="pass.sendingTeacher">{{pass.sendingTeacher}}</a> to <a class="teacherName" [title]="pass.receivingTeacher">{{pass.receivingTeacher}}</a>
+<div *ngFor="let pass of activePasses">
+    From <a  class="teacherName" [title]="pass.sendingTeacher.email">{{pass.sendingTeacher.name}}</a> to <a class="teacherName" [title]="pass.receivingTeacher.email">{{pass.receivingTeacher.name}}</a>
     Student: {{pass.studentName}}
-    <button type="button" (click)="changeState(pass)">Click to make Inactive</button>
-
-  </div>
+    <button type="button" (click)="changeState(pass, true)">Mark Complete</button>
+    <button type="button" (click)="changeState(pass, false)">Mark Incomplete</button>
+    <button type="button" (click)="deletePass(pass)">Delete Pass</button>
 </div>
 <h1>Inactive Passes</h1>
-<div *ngFor="let pass of passes">
-  <div *ngIf="!pass.active">
-    From <a  class="teacherName" [title]="pass.sendingTeacher">{{pass.sendingTeacher}}</a> to <a class="teacherName" [title]="pass.receivingTeacher">{{pass.receivingTeacher}}</a>
+<div *ngFor="let pass of inactivePasses">
+    From <a  class="teacherName" [title]="pass.sendingTeacher.email">{{pass.sendingTeacher.name}}</a> to <a class="teacherName" [title]="pass.receivingTeacher.email">{{pass.receivingTeacher.name}}</a>
     Student: {{pass.studentName}}
-    <button type="button" (click)="changeState(pass)">Click to Make Active</button>
-  </div>
+    <button type="button" (click)="changeState(pass, false)">Click to Make Active</button>
+    <button type="button" (click)="deletePass(pass)">Delete Pass</button>
+    <div *ngIf="pass.state">Pass Complete</div>
+    <div *ngIf="!pass.state">Pass Incomplete</div>
 </div>
