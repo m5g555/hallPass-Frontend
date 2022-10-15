@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Pass, activePasses, inactivePasses } from './passes';
+import { AppRoutingModule } from './app-routing.module';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent {
   if(activePasses.includes(pass)){
     let removedPass = activePasses.splice(activePasses.indexOf(pass), 1);
     inactivePasses.push(pass);}
-    
+
   else if(inactivePasses.includes(pass)){
     let removedPass = inactivePasses.splice(inactivePasses.indexOf(pass), 1);
     activePasses.push(pass);
@@ -33,6 +34,8 @@ export class AppComponent {
     activePasses.splice(index, 1);}
 
   title = 'hallPass';
+
+  // Rather than importing these, once I do backend and database, this will have to call the database
   activePasses: Pass[] = activePasses;
   inactivePasses: Pass[] = inactivePasses;
 

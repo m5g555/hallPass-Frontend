@@ -1,11 +1,14 @@
+<!-- List of Active Passes -->
 <h1>Active Passes</h1>
-<div *ngFor="let pass of activePasses">
+<div *ngFor="let pass of activePasses"> <!-- Loop through each pass and print the information-->
     From <a  class="teacherName" [title]="pass.sendingTeacher.email">{{pass.sendingTeacher.name}}</a> to <a class="teacherName" [title]="pass.receivingTeacher.email">{{pass.receivingTeacher.name}}</a>
     Student: {{pass.studentName}}
     <button type="button" (click)="changeState(pass, true)">Mark Complete</button>
     <button type="button" (click)="changeState(pass, false)">Mark Incomplete</button>
     <button type="button" (click)="deletePass(pass)">Delete Pass</button>
 </div>
+
+<!-- List of Inactive Passes -->
 <h1>Inactive Passes</h1>
 <div *ngFor="let pass of inactivePasses">
     From <a  class="teacherName" [title]="pass.sendingTeacher.email">{{pass.sendingTeacher.name}}</a> to <a class="teacherName" [title]="pass.receivingTeacher.email">{{pass.receivingTeacher.name}}</a>
@@ -15,3 +18,6 @@
     <div *ngIf="pass.state">Pass Complete</div>
     <div *ngIf="!pass.state">Pass Incomplete</div>
 </div>
+
+<!-- <button type="button" (click)="goToPage('newPass')">New Pass</button> -->
+<router-outlet></router-outlet>
