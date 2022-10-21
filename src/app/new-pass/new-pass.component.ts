@@ -3,7 +3,8 @@ import { teachers, Teacher, teacherNames } from '../teachers';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import {form-field} from '@angular/material';
+import { FormsModule } from '@angular/forms';
+import { MatFormField } from '@angular/material/form-field';
 
 
 // This will be a component that consists of a form for creating a new pass
@@ -31,7 +32,7 @@ export class NewPassComponent implements OnInit {
       startWith(''),
       map(value => {
         // Will take every value, and if it is a string, it will map it to itself, but if not it will map it to it's name property
-        const name = typeof(value === 'string' ? value: value.name)
+        const name = typeof value === 'string' ? value: value?.name
         // Not actually sure what this next line does
         return name ? this._filter(name as string) : this.options.slice();
       })
