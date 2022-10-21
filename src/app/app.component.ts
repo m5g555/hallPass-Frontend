@@ -30,7 +30,7 @@ export class AppComponent {
 
 
   deletePass(pass: Pass){
-    let index = activePasses.findIndex(tempPass => tempPass.id == pass.id);
+    let index = activePasses.findIndex(tempPass => tempPass.studentName == pass.studentName);
     activePasses.splice(index, 1);}
 
   title = 'hallPass';

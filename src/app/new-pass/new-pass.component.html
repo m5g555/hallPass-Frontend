@@ -1,9 +1,9 @@
-<!-- Skeleton of form taken from https://material.angular.io/components/autocomplete/examples, specifically from the Display Value autocomplete example-->
 <form class="example-form">
     <!-- Autofilling teacher form -->
+    <!-- Skeleton of form taken from https://material.angular.io/components/autocomplete/examples, specifically from the Display Value autocomplete example -->
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Teacher</mat-label>
-      <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+      <input type="text" matInput [formControl]="formTeacher" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
           {{option.name}}
@@ -14,12 +14,14 @@
     <div></div>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Student Name</mat-label>
-      <input type="text" matInput [formControl]="myControl" placeholder="Student Name">
+      <input type="text" matInput [formControl]="formStudent" placeholder="Student Name">
     </mat-form-field>
     <!-- Reason Form -->
     <div></div>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Reason (Optional)</mat-label>
-      <textarea matInput [formControl]="myControl" placeholder="Reason (Optional)"></textarea>
+      <textarea matInput [formControl]="formReason" placeholder="Reason (Optional)"></textarea>
     </mat-form-field>
+    <div></div>
+    <button (click)="submit()">hello</button>
   </form>

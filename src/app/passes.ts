@@ -28,19 +28,19 @@
 
 import { Teacher, teachers} from './teachers'
 export class Pass{
-    id: number;
     sendingTeacher: Teacher;
     receivingTeacher: Teacher;
     studentName: string;
     timeCreated: string;
+    reason: string;
     state: boolean;
 
-    constructor(id: number, sendingTeacherName: String, receivingTeacherName: string, studentName: string, timeCreated: string){
-        this.id = id;
+    constructor(sendingTeacherName: String, receivingTeacherName: string, studentName: string, reason:string, timeCreated: string){
         this.sendingTeacher = teachers[teachers.findIndex(teacher => teacher.name == sendingTeacherName)];
         this.receivingTeacher = teachers[teachers.findIndex(teacher => teacher.name == receivingTeacherName)];
         this.studentName = studentName;
         this.timeCreated = timeCreated;
+        this.reason = reason;
         this.state = false;
     }
 
@@ -57,8 +57,8 @@ export class Pass{
 }
 
 export const activePasses: Pass[] = [
-    new Pass(1, "Mr. Smith", "Mrs. Jones", "John Doe", "2020-01-01 12:00:00"), 
-    new Pass(2, "Mr. Swasd", "Mrs. Jons", "Jane Doe", "2022-01-01 12:00:00")
+    new Pass("Mr. Smith", "Mrs. Jones", "John Doe", "testing", "2020-01-01 12:00:00"), 
+    new Pass("Mr. Swasd", "Mrs. Jons", "Jane Doe", "other testing", "2022-01-01 12:00:00")
 ];
 
 export var inactivePasses: Pass[] = [];
