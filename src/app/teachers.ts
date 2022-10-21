@@ -16,3 +16,5 @@ export const teachers: Teacher[] = [
     new Teacher(3, "Mr. Swasd", "swasd@gmail.com"),
     new Teacher(4, "Mrs. Jons", "jons@gmail.com")
 ];
+
+export const teacherNames: String[] = teachers.map(teacher => teacher.name);

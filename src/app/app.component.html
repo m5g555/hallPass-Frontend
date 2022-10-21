@@ -21,8 +21,7 @@
 
 <!-- <button type="button" (click)="goToPage('newPass')">New Pass</button> -->
 
-<!-- A nav with a router link is essentially a clickable link that is linked to a certain router, which is set by the routerLink attribute. When clicked, it routes to that page-->
-<nav>
-    <a routerLink="/newPass">New Pass</a>
-</nav>
+<!-- A button/hyperlink with a router link is essentially a clickable link that is linked to a certain router, which is set by the routerLink attribute. When clicked, 
+it displays the linked componentunder the router outlet-->
+<button type="button" routerLink="/newPass">New Pass</button>
 <router-outlet></router-outlet>
