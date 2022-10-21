@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { teachers, Teacher, teacherNames } from '../teachers';
+import { Pass, activePasses } from '../passes';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -21,14 +22,16 @@ import { MatFormField } from '@angular/material/form-field';
 })
 export class NewPassComponent implements OnInit {
 // Start of code from https://material.angular.io/components/autocomplete/examples, specifically from the Display Value autocomplete example
-  myControl = new FormControl('');
+  formTeacher = new FormControl('');
+  formStudent = new FormControl('');
+  formReason = new FormControl('');
   options: Teacher[] = teachers;
   filteredOptions!: Observable<Teacher[]>;
 
   ngOnInit(): void {
     // valueChanges is an event emmited whenever the value of the formControl changes
     // pipe is a function that takes in a series of functions and returns a new function
-    this.filteredOptions = this.myControl.valueChanges.pipe(
+    this.filteredOptions = this.formTeacher.valueChanges.pipe(
       startWith(''),
       map(value => {
         // Will take every value, and if it is a string, it will map it to itself, but if not it will map it to it's name property
@@ -48,6 +51,24 @@ export class NewPassComponent implements OnInit {
   private _filter(name: string): Teacher[] {
     const filterValue = name.toLowerCase();
     return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
+  public submit(): void {
+    console.log(this.formReason.value);
+    let recievingTeacher: Teacher = this.formTeacher.value;
+    let studentName = this.formStudent.value;
+    console.log(recievingTeacher);
+    console.log(studentName);
+
+    // Create a new pass object
+    // Sending Teacher will have to autofill with the current account
+    // time will also have to autofill iwth the current time
+    let newPass = new Pass(teachers[0].name, recievingTeacher.name, studentName, "000", this.formReason.value);
+    console.log(newPass);
+    console.log(typeof newPass);
+    // Add the new pass to the list
+    // In the future this will just push to the database instead of the array
+    activePasses.push(newPass);
   }
 }
 
