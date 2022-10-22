@@ -4,8 +4,7 @@ import { Pass, activePasses } from '../passes';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { FormsModule } from '@angular/forms';
-import { MatFormField } from '@angular/material/form-field';
+
 
 
 // This will be a component that consists of a form for creating a new pass
@@ -54,21 +53,26 @@ export class NewPassComponent implements OnInit {
   }
 
   public submit(): void {
+    console.log(this.formTeacher.value);
+    console.log(this.formStudent.value);
     console.log(this.formReason.value);
     let recievingTeacher: Teacher = this.formTeacher.value;
     let studentName = this.formStudent.value;
+    let reason = this.formReason.value;
     console.log(recievingTeacher);
     console.log(studentName);
 
     // Create a new pass object
     // Sending Teacher will have to autofill with the current account
-    // time will also have to autofill iwth the current time
-    let newPass = new Pass(teachers[0].name, recievingTeacher.name, studentName, "000", this.formReason.value);
+    if (reason != ""){
+    var newPass = new Pass("Test Teacher", recievingTeacher.name, studentName, reason);
+    } else {var newPass = new Pass("Test Teacher", recievingTeacher.name, studentName);}
     console.log(newPass);
     console.log(typeof newPass);
     // Add the new pass to the list
     // In the future this will just push to the database instead of the array
     activePasses.push(newPass);
   }
+
 }
 

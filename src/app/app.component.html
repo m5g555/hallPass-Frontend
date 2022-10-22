@@ -1,27 +1,58 @@
 <!-- List of Active Passes -->
-<h1>Active Passes</h1>
-<div *ngFor="let pass of activePasses"> <!-- Loop through each pass and print the information-->
-    From <a  class="teacherName" [title]="pass.sendingTeacher.email">{{pass.sendingTeacher.name}}</a> to <a class="teacherName" [title]="pass.receivingTeacher.email">{{pass.receivingTeacher.name}}</a>
-    Student: {{pass.studentName}}
-    <button type="button" (click)="changeState(pass, true)">Mark Complete</button>
-    <button type="button" (click)="changeState(pass, false)">Mark Incomplete</button>
-    <button type="button" (click)="deletePass(pass)">Delete Pass</button>
-</div>
+<h1 style="margin-top:1em">Active Passes</h1>
+<mat-card style="margin: 2em" *ngFor="let pass of activePasses">
+    <mat-card-header>
+        <mat-card-title>
+        <h2>{{pass.studentName}}</h2>
+        </mat-card-title>
+        <mat-card-subtitle>
+        <h3><a [title]="pass.sendingTeacher.email">{{pass.sendingTeacher.name}}</a></h3>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        Receiving Teacher: 
+        <a [title]="pass.receivingTeacher.email">{{pass.receivingTeacher.name}}</a>
+        <p>Reason: {{pass.reason}}</p>
+        <p>Time: {{pass.timeCreated | date:'short'}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button type="button" (click)="changeState(pass, true)">Mark Complete</button>
+        <button mat-raised-button type="button" (click)="changeState(pass, false)">Mark Incomplete</button>
+        <button mat-raised-button type="button" (click)="deletePass(pass)">Delete Pass</button>
+    </mat-card-actions>
+</mat-card>
 
 <!-- List of Inactive Passes -->
-<h1>Inactive Passes</h1>
-<div *ngFor="let pass of inactivePasses">
-    From <a  class="teacherName" [title]="pass.sendingTeacher.email">{{pass.sendingTeacher.name}}</a> to <a class="teacherName" [title]="pass.receivingTeacher.email">{{pass.receivingTeacher.name}}</a>
-    Student: {{pass.studentName}}
-    <button type="button" (click)="changeState(pass, false)">Click to Make Active</button>
-    <button type="button" (click)="deletePass(pass)">Delete Pass</button>
-    <div *ngIf="pass.state">Pass Complete</div>
-    <div *ngIf="!pass.state">Pass Incomplete</div>
-</div>
+<h1 *ngIf="inactivePasses.length>0">Inactive Passes</h1>
+<mat-card style="margin: 2em" *ngFor="let pass of inactivePasses">
+    <mat-card-header>
+        <mat-card-title>
+        <!-- If the pass is incomplete, display a red incomplete -->
+        <h2 *ngIf="!pass.state" class="incompleteNotif">Pass Incomplete</h2>
+        <h2>{{pass.studentName}}</h2>
+        </mat-card-title>
+        <mat-card-subtitle>
+        <h3><a [title]="pass.sendingTeacher.email">{{pass.sendingTeacher.name}}</a></h3>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        Receiving Teacher:
+        <a [title]="pass.receivingTeacher.email"> {{pass.receivingTeacher.name}}</a>
+        <p>Reason: {{pass.reason}}</p>
+        <p>Time: {{pass.timeCreated | date:'short'}}</p>
+        <div *ngIf="pass.state">Pass Complete</div>
+        <div *ngIf="!pass.state">Pass Incomplete</div>
+    </mat-card-content>
+    <mat-card-actions>        
+        <button mat-raised-button type="button" (click)="changeState(pass, false)">Click to Make Active</button>
+        <button mat-raised-button type="button" (click)="deletePass(pass)">Delete Pass</button>
+    </mat-card-actions>
+</mat-card>
 
-<!-- <button type="button" (click)="goToPage('newPass')">New Pass</button> -->
+
+
 
 <!-- A button/hyperlink with a router link is essentially a clickable link that is linked to a certain router, which is set by the routerLink attribute. When clicked, 
 it displays the linked componentunder the router outlet-->
-<button type="button" routerLink="/newPass">New Pass</button>
+<button mat-raised-button color="primary" type="button" routerLink="/newPass">New Pass</button>
 <router-outlet></router-outlet>

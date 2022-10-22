@@ -31,18 +31,33 @@ export class Pass{
     sendingTeacher: Teacher;
     receivingTeacher: Teacher;
     studentName: string;
-    timeCreated: string;
+    // Stored as a number of ms since 1970
+    timeCreated: number;
     reason: string;
     state: boolean;
+    timeCounter: Date = new Date()
 
-    constructor(sendingTeacherName: String, receivingTeacherName: string, studentName: string, reason:string, timeCreated: string){
-        this.sendingTeacher = teachers[teachers.findIndex(teacher => teacher.name == sendingTeacherName)];
+    constructor(sendingTeacherName: string, receivingTeacherName: string, studentName: string, reason?:string, timeCreated?: number){
+        // The question mark in the constructor means that it is an optional parameter
+        if (teachers.findIndex(teacher => teacher.name == sendingTeacherName) != -1){
+        this.sendingTeacher = teachers[teachers.findIndex(teacher => teacher.name == sendingTeacherName)];}
+        else{this.sendingTeacher= new Teacher(0, sendingTeacherName, "Unknown");}
         this.receivingTeacher = teachers[teachers.findIndex(teacher => teacher.name == receivingTeacherName)];
         this.studentName = studentName;
-        this.timeCreated = timeCreated;
-        this.reason = reason;
+        // If reason is not specified, set it to "No reason specified"
+        if(reason == undefined){
+            this.reason = "No reason specified";}
+        else{this.reason = reason;}
         this.state = false;
+        // If timeCreated is not specified, set it to the current time
+        if(timeCreated == undefined){
+            this.timeCreated = this.timeCounter.getTime()
+        }
+        else{
+            this.timeCreated = timeCreated;
+        }
     }
+    
 
     changeState(states: boolean){
         // Changes the state of a pass from either active to inactive or vice versa
@@ -57,8 +72,8 @@ export class Pass{
 }
 
 export const activePasses: Pass[] = [
-    new Pass("Mr. Smith", "Mrs. Jones", "John Doe", "testing", "2020-01-01 12:00:00"), 
-    new Pass("Mr. Swasd", "Mrs. Jons", "Jane Doe", "other testing", "2022-01-01 12:00:00")
+    new Pass("Mr. Smith", "Mrs. Jones", "John Doe", "testing", 12), 
+    new Pass("Mr. Swasd", "Mrs. Jons", "Jane Doe", "other testing", 35)
 ];
 
 export var inactivePasses: Pass[] = [];
