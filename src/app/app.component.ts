@@ -35,9 +35,7 @@ export class AppComponent {
 
   title = 'hallPass';
 
-  // Rather than importing these, once I do backend and database, this will have to call the database
-  activePasses: Pass[] = activePasses;
-  inactivePasses: Pass[] = inactivePasses;
+  
 
 
 }

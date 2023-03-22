@@ -41,7 +41,7 @@ export class Pass{
         // The question mark in the constructor means that it is an optional parameter
         if (teachers.findIndex(teacher => teacher.name == sendingTeacherName) != -1){
         this.sendingTeacher = teachers[teachers.findIndex(teacher => teacher.name == sendingTeacherName)];}
-        else{this.sendingTeacher= new Teacher(0, sendingTeacherName, "Unknown");}
+        else{this.sendingTeacher= new Teacher(sendingTeacherName, "Unknown");}
         this.receivingTeacher = teachers[teachers.findIndex(teacher => teacher.name == receivingTeacherName)];
         this.studentName = studentName;
         // If reason is not specified, set it to "No reason specified"
@@ -71,10 +71,12 @@ export class Pass{
 
 }
 
-export const activePasses: Pass[] = [
-    new Pass("Mr. Smith", "Mrs. Jones", "John Doe", "testing", 12), 
-    new Pass("Mr. Swasd", "Mrs. Jons", "Jane Doe", "other testing", 35)
-];
+
+
+// export const activePasses: Pass[] = [
+//     new Pass("Mr. Smith", "Mrs. Jones", "John Doe", "testing", 12), 
+//     new Pass("Mr. Swasd", "Mrs. Jons", "Jane Doe", "other testing", 35)
+// ];
 
 export var inactivePasses: Pass[] = [];
 
