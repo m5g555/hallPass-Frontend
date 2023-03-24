@@ -27,17 +27,20 @@
 //     }];
 
 import { Teacher, teachers} from './teachers'
+import { PassGetterService } from './service/pass-getter.service'
+import { HttpClient } from '@angular/common/http';
 export class Pass{
     sendingTeacher: Teacher;
     receivingTeacher: Teacher;
-    studentName: string;
+    studentName: String;
     // Stored as a number of ms since 1970
-    timeCreated: number;
-    reason: string;
-    state: boolean;
+    timeCreated: Number;
+    reason: String;
+    state: Boolean;
     timeCounter: Date = new Date()
+    id: string;
 
-    constructor(sendingTeacherName: string, receivingTeacherName: string, studentName: string, reason?:string, timeCreated?: number){
+    constructor(sendingTeacherName: string, receivingTeacherName: string, studentName: string, id: string, reason?:string, timeCreated?: number){
         // The question mark in the constructor means that it is an optional parameter
         if (teachers.findIndex(teacher => teacher.name == sendingTeacherName) != -1){
         this.sendingTeacher = teachers[teachers.findIndex(teacher => teacher.name == sendingTeacherName)];}
@@ -56,6 +59,7 @@ export class Pass{
         else{
             this.timeCreated = timeCreated;
         }
+        this.id = id;
     }
     
 
@@ -78,7 +82,6 @@ export class Pass{
 //     new Pass("Mr. Swasd", "Mrs. Jons", "Jane Doe", "other testing", 35)
 // ];
 
-export var inactivePasses: Pass[] = [];
 
 // export const passes = [
 //     new Pass(1, "Mr. Smith", "Mrs. Jones", "John Doe", "2020-01-01 12:00:00", true), 

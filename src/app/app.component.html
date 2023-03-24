@@ -13,7 +13,7 @@
         Receiving Teacher: 
         <a [title]="pass.receivingTeacher.email">{{pass.receivingTeacher.name}}</a>
         <p>Reason: {{pass.reason}}</p>
-        <p>Time: {{pass.timeCreated | date:'short'}}</p>
+        <p>Time: {{pass.timeCreated}}</p>
     </mat-card-content>
     <mat-card-actions>
         <button mat-raised-button type="button" (click)="changeState(pass, true)">Mark Complete</button>
@@ -39,7 +39,7 @@
         Receiving Teacher:
         <a [title]="pass.receivingTeacher.email"> {{pass.receivingTeacher.name}}</a>
         <p>Reason: {{pass.reason}}</p>
-        <p>Time: {{pass.timeCreated | date:'short'}}</p>
+        <p>Time: {{pass.timeCreated}}</p>
         <div *ngIf="pass.state">Pass Complete</div>
         <div *ngIf="!pass.state">Pass Incomplete</div>
     </mat-card-content>

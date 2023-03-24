@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { Pass, activePasses, inactivePasses } from './passes';
+import { Pass } from './passes';
 import { AppRoutingModule } from './app-routing.module';
+import { PassGetterService } from './service/pass-getter.service';
+import { Teacher } from './teachers';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +12,25 @@ import { AppRoutingModule } from './app-routing.module';
 
 export class AppComponent {
 
+  allPasses: Pass[] = [];
+  activePasses: Pass[] = [];
+  inactivePasses: Pass[] = [];
+
+  constructor(private passGetter: PassGetterService){
+  }
+
+  ngOnInit(){
+    this.passGetter.getPasses().subscribe((data: any) => {
+      console.log(data)
+      this.allPasses = data.map((pass: any) => new Pass(pass.sendingTeacherName,pass.receivingTeacherName, pass.studentName, pass._id, pass.reason, pass.timeCreated));
+      console.log(this.allPasses)
+      this.activePasses = this.allPasses.filter(pass => pass.state == false);
+      this.inactivePasses = this.allPasses.filter(pass => pass.state == true);
+      console.log(this.activePasses)
+      console.log(this.inactivePasses)
+    }, (error: any) => {console.log('error')}, () => {})
+  };
+
   changeState(pass: Pass, state: boolean){
   // Changes the state of a pass from either active to inactive or vice versa
   // Called when the user clicks on the "Click to make active" or "Click to make inactive" button
@@ -17,23 +38,32 @@ export class AppComponent {
   
   // If a pass is active, move it to inactive
   // If a pass is inactive, move it to active
-  if(activePasses.includes(pass)){
-    let removedPass = activePasses.splice(activePasses.indexOf(pass), 1);
-    inactivePasses.push(pass);}
+  if(this.activePasses.includes(pass)){
+    let removedPass = this.activePasses.splice(this.activePasses.indexOf(pass), 1);
+    this.inactivePasses.push(pass);}
 
-  else if(inactivePasses.includes(pass)){
-    let removedPass = inactivePasses.splice(inactivePasses.indexOf(pass), 1);
-    activePasses.push(pass);
+  else if(this.inactivePasses.includes(pass)){
+    let removedPass = this.inactivePasses.splice(this.inactivePasses.indexOf(pass), 1);
+    this.activePasses.push(pass);
   }
 }
   
 
 
   deletePass(pass: Pass){
-    let index = activePasses.findIndex(tempPass => tempPass.studentName == pass.studentName);
-    activePasses.splice(index, 1);}
+    let index = this.activePasses.findIndex(tempPass => tempPass.studentName == pass.studentName);
+    this.activePasses.splice(index, 1);
+    this.passGetter.deletePass(pass.id).subscribe((data: any) => {
+      console.log(data)
+      window.location.reload()
+    }, (error: any) => {console.log('error')}, () => {})  
+  }
 
   title = 'hallPass';
+
+  // dbCallPasses(){
+  //   this.
+  // }
 
   
 

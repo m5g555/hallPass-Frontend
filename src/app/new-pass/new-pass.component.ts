@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { teachers, Teacher, teacherNames } from '../teachers';
-import { Pass, activePasses } from '../passes';
+import { Pass } from '../passes';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { PassGetterService } from '../service/pass-getter.service';
+
 
 
 
@@ -27,7 +29,9 @@ export class NewPassComponent implements OnInit {
   options: Teacher[] = teachers;
   filteredOptions!: Observable<Teacher[]>;
 
-  ngOnInit(): void {
+  constructor(private passGetter: PassGetterService) { }
+
+  ngOnInit() {
     // valueChanges is an event emmited whenever the value of the formControl changes
     // pipe is a function that takes in a series of functions and returns a new function
     this.filteredOptions = this.formTeacher.valueChanges.pipe(
@@ -39,6 +43,12 @@ export class NewPassComponent implements OnInit {
         return name ? this._filter(name as string) : this.options.slice();
       })
     )
+
+    this.passGetter.getTeachers().subscribe((data: any) => {
+      var Teachers: Teacher[] = data;
+      var teacherNames = Teachers.map(teacher => teacher.name);
+    }, (error: any) => {}, () => {})
+
   }
 
   displayFn(teach: Teacher): string {
@@ -65,13 +75,20 @@ export class NewPassComponent implements OnInit {
     // Create a new pass object
     // Sending Teacher will have to autofill with the current account
     if (reason != ""){
-    var newPass = new Pass("Test Teacher", recievingTeacher.name, studentName, reason);
-    } else {var newPass = new Pass("Test Teacher", recievingTeacher.name, studentName);}
+    var newPass = new Pass("Mr. Smith", recievingTeacher.name, studentName, '12', reason);
+    } else {var newPass = new Pass("Mr. Smith", recievingTeacher.name, studentName, '12');}
     console.log(newPass);
     console.log(typeof newPass);
     // Add the new pass to the list
     // In the future this will just push to the database instead of the array
-    activePasses.push(newPass);
+    
+   
+     this.passGetter.pushPass(newPass).subscribe((data: any) => {
+       console.log(data);
+       window.location.reload()
+     }, (error: any) => {}, () => {})
+
+     
   }
 
 }
